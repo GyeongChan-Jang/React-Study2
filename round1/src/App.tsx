@@ -1,5 +1,11 @@
 import Input from './UI/Login/input'
 
+import {
+  VALIDATOR_EMAIL,
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE
+} from './utill/validator'
+
 function App() {
   return (
     <div className="App">
@@ -14,7 +20,7 @@ function App() {
             type="text"
             placeholder="이름을 입력하세요!"
             error="이름은 두 글자 이상 입력해주세요."
-            // validators={}
+            validators={[VALIDATOR_REQUIRE()]}
           />
           <Input
             id="email"
@@ -22,13 +28,15 @@ function App() {
             type="email"
             placeholder="이메일을 입력하세요!"
             error="이메일 형식이 맞지 않습니다."
+            validators={[VALIDATOR_EMAIL()]}
           />
           <Input
             id="password"
             label="비밀번호"
             type="password"
             placeholder="비밀번호를 입력하세요!"
-            error="비밀번호는 8자 이상 입력해주세요!"
+            error="비밀번호는 8자 이상 20자 이하로 입력해주세요!"
+            validators={[VALIDATOR_MINLENGTH(8), VALIDATOR_MINLENGTH(20)]}
           />
         </form>
       </div>

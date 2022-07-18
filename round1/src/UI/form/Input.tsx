@@ -62,12 +62,21 @@ const input = ({ id, label, type, placeholder, error, validators }: InputInfo) =
   }
 
   return (
-    <div>
-      <div className="mb-2 block">
-        <label htmlFor={id}>{label}</label>
+    <div className="">
+      <div className="">
+        <label htmlFor={id} className="text-sm">
+          {label}
+        </label>
       </div>
-      <input id={id} type={type} placeholder={placeholder} onChange={onChange} onBlur={onBlur} />
-      {!inputState.isValid && inputState.isBlur && <p>{error}</p>}
+      <input
+        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+        id={id}
+        type={type}
+        placeholder={placeholder}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
+      {!inputState.isValid && inputState.isBlur && <p className="text-xs text-red-600">{error}</p>}
     </div>
   )
 }

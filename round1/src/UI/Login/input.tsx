@@ -18,9 +18,7 @@ interface InputState {
 }
 
 // 타입을 임의의 단어로도 지정할 수 있음!
-type Actions =
-  | { type: 'CHANGE'; payload: string; validators: ValidatorTypes[] }
-  | { type: 'BLUR' }
+type Actions = { type: 'CHANGE'; payload: string; validators: ValidatorTypes[] } | { type: 'BLUR' }
 // reducer 함수는 인수로 초기값과 action을 받음
 const inputReducer = (state: InputState, action: Actions): InputState => {
   switch (action.type) {
@@ -42,14 +40,7 @@ const inputReducer = (state: InputState, action: Actions): InputState => {
   }
 }
 
-const input = ({
-  id,
-  label,
-  type,
-  placeholder,
-  error,
-  validators
-}: InputInfo) => {
+const input = ({ id, label, type, placeholder, error, validators }: InputInfo) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: '',
     isBlur: false,
@@ -75,13 +66,8 @@ const input = ({
       <div className="mb-2 block">
         <label htmlFor={id}>{label}</label>
       </div>
-      <input
-        id={id}
-        type={type}
-        placeholder={placeholder}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
+      <input id={id} type={type} placeholder={placeholder} onChange={onChange} onBlur={onBlur} />
+      {!inputState.isValid && inputState.isBlur && <p>{error}</p>}
     </div>
   )
 }

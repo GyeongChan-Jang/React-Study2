@@ -36,7 +36,7 @@ export const VALIDATOR_EMAIL = () => ({ type: TYPE_EMAIL })
 
 // 모든 검증을 처리하는 함수!
 export const validate = (value: string, validators: ValidatorTypes[]) => {
-  // 왜 먼저 true로 설정하지?
+  // 모든 검증을 통합 처리하기 위해
   let isValid = true
 
   for (let validator of validators) {
@@ -45,10 +45,10 @@ export const validate = (value: string, validators: ValidatorTypes[]) => {
     }
     // && validator.value  -> 이부분은 타입가드 validator.value가 undefined가 넘어오면 안됨!
     if (validator.type === TYPE_MINLENGTH && validator.value) {
-      isValid = isValid && value.trim().length > validator.value
+      isValid = isValid && value.trim().length >= validator.value
     }
     if (validator.type === TYPE_MAXLENGTH && validator.value) {
-      isValid = isValid && value.trim().length < validator.value
+      isValid = isValid && value.trim().length <= validator.value
     }
     if (validator.type === TYPE_MIN && validator.value) {
       isValid = isValid && +value >= validator.value
@@ -59,6 +59,6 @@ export const validate = (value: string, validators: ValidatorTypes[]) => {
     if (validator.type === TYPE_EMAIL) {
       isValid = isValid && /^\S+@\S+\.\S+$/.test(value)
     }
-    return isValid
   }
+  return isValid
 }

@@ -31,7 +31,9 @@ const Button = ({
 }: ChildProps) => {
   return (
     <button
-      className={`${large ? 'w-64' : ''} ${small ? 'w-28 h-10 text-xs break-normal' : ''}`}
+      className={`px-4 py-2 rounded text-white inline-block shadow-lg bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 ${
+        large ? 'w-64' : ''
+      } ${small ? 'w-28 h-10 text-xs break-normal' : ''}`}
       type={type}
       disabled={disabled}
       onClick={toggleSignInAndSignUp}

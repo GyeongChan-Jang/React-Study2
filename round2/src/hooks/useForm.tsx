@@ -1,5 +1,4 @@
-import React, { useCallback, useReducer } from 'react'
-import { ValidatorTypes } from '../util/validator'
+import { useCallback, useReducer } from 'react'
 
 export interface initialStateType {
   inputs: {

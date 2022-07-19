@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react'
-import { ValidatorTypes } from '../../utill/validator'
-import { validate } from '../../utill/validator'
+import { ValidatorTypes } from '../../../util/validator'
+import { validate } from '../../../util/validator'
 
 interface InputInfo {
   id: string
@@ -9,6 +9,7 @@ interface InputInfo {
   placeholder: string
   error: string
   validators: ValidatorTypes[]
+  inputHandler: any
 }
 
 interface InputState {
@@ -63,20 +64,24 @@ const input = ({ id, label, type, placeholder, error, validators }: InputInfo) =
 
   return (
     <div className="">
-      <div className="">
+      <div className="mb-2">
         <label htmlFor={id} className="text-sm">
           {label}
         </label>
       </div>
-      <input
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-        id={id}
-        type={type}
-        placeholder={placeholder}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
-      {!inputState.isValid && inputState.isBlur && <p className="text-xs text-red-600">{error}</p>}
+      <div>
+        <input
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 focus:shadow-out leading-tight shadow"
+          id={id}
+          type={type}
+          placeholder={placeholder}
+          onChange={onChange}
+          onBlur={onBlur}
+        />
+        {!inputState.isValid && inputState.isBlur && (
+          <p className="text-xs text-red-600">{error}</p>
+        )}
+      </div>
     </div>
   )
 }

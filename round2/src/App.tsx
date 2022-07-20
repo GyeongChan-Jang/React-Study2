@@ -9,7 +9,7 @@ import {
   VALIDATOR_MAXLENGTH
 } from './util/validator'
 import { useForm } from './hooks/useForm'
-import { nameErrorValue, passwordMinValue, passwordMaxValue } from './util/errorText'
+import { nameErrorValue, passwordMinValue, passwordMaxValue } from './util/ErrorText'
 
 function App() {
   const [loginMode, setLoginMode] = useState(false)
@@ -46,9 +46,8 @@ function App() {
           </div>
           <form className="flex flex-col gap-4">
             <Button toggleSignInAndSignUp={toggleSignInAndSignUp} type={ButtonTypes.BUTTON}>
-              {loginMode ? '로그인' : '회원가입'}하러 가기
+              {loginMode ? '회원가입' : '로그인'}하러 가기
             </Button>
-
             {!loginMode && (
               <Input
                 id="name"
@@ -81,9 +80,7 @@ function App() {
               ]}
               inputHandler={inputHandler}
             />
-            <div className="flex items-baseline justify-between">
-              <Button disabled={!formState.isFormValid}>{loginMode ? '로그인' : '회원가입'}</Button>
-            </div>
+            <Button disabled={!formState.isFormValid}>{loginMode ? '로그인' : '회원가입'}</Button>
           </form>
         </div>
       </div>

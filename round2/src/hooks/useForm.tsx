@@ -35,7 +35,6 @@ const formReducer = (state: initialStateType, action: Actions): initialStateType
           formValid = formValid && state.inputs[inputId].isValid
         }
       }
-
       return {
         ...state,
         inputs: {

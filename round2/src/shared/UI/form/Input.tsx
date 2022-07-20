@@ -71,7 +71,11 @@ const input = ({ id, label, type, placeholder, error, validators }: InputInfo) =
       </div>
       <div>
         <input
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 focus:shadow-out leading-tight shadow"
+          className={`w-full px-4 py-2 border rounded-md leading-tight shadow focus:outline-none focus:shadow-out ${
+            !inputState.isValid && inputState.isBlur
+              ? 'ring-2 ring-red-600 focus:ring-red-600 focus:ring-2 border-none'
+              : 'focus:ring-blue-600 focus:ring-2'
+          }`}
           id={id}
           type={type}
           placeholder={placeholder}
@@ -79,7 +83,7 @@ const input = ({ id, label, type, placeholder, error, validators }: InputInfo) =
           onBlur={onBlur}
         />
         {!inputState.isValid && inputState.isBlur && (
-          <p className="text-xs text-red-600">{error}</p>
+          <p className="text-xs text-red-600 mt-1 ml-1">{error}</p>
         )}
       </div>
     </div>

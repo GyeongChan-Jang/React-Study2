@@ -12,7 +12,7 @@ import { useForm } from './hooks/useForm'
 import { nameErrorValue, passwordMinValue, passwordMaxValue } from './util/ErrorText'
 
 function App() {
-  const [loginMode, setLoginMode] = useState(false)
+  const [loginMode, setLoginMode] = useState(true)
 
   const { formState, inputHandler, setForm } = useForm({}, false)
 
@@ -31,6 +31,7 @@ function App() {
       )
       console.log('sign-up: ', formState)
     } else {
+      // 로그인 모드
       setForm({ ...formState.inputs }, false)
       console.log('sign-in: ', formState)
     }
@@ -55,7 +56,7 @@ function App() {
                 type="text"
                 placeholder="이름을 입력하세요!"
                 error={`이름은 ${nameErrorValue}자 이상 입력해주세요.`}
-                validators={[VALIDATOR_REQUIRE()]}
+                validators={[VALIDATOR_MINLENGTH(2)]}
                 inputHandler={inputHandler}
               />
             )}

@@ -2,7 +2,7 @@ import React, { useEffect, useReducer } from 'react'
 import { ValidatorTypes } from '../../../util/validator'
 import { validate } from '../../../util/validator'
 
-interface InputInfo {
+interface childProps {
   id: string
   label: string
   type: string
@@ -44,14 +44,14 @@ const inputReducer = (state: InputState, action: Actions): InputState => {
   }
 }
 
-const input = ({ id, label, type, placeholder, error, validators, inputHandler }: InputInfo) => {
+const input = ({ id, label, type, placeholder, error, validators, inputHandler }: childProps) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: '',
     isBlur: false,
     isValid: false
   })
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     dispatch({
       type: 'CHANGE',
       payload: e.currentTarget.value,

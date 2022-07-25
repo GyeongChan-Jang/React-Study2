@@ -14,14 +14,27 @@ import { nameErrorValue, passwordMinValue, passwordMaxValue } from './util/Error
 function App() {
   const [loginMode, setLoginMode] = useState(false)
 
+  const { formState, inputHandler, setForm } = useForm({}, false)
+
+  const onSubmit = (e: any) => {
+    e.preventDefalut()
+    console.log(formState)
+  }
+
   const toggleSignInAndSignUp = () => {
     setLoginMode((prev) => !prev)
     if (!loginMode) {
-      // 회원가입 모드)
+      // 회원가입 모드
+      setForm(
+        { ...formState.inputs },
+        formState.inputs.email.isValid && formState.inputs.password.isValid
+      )
+      console.log('sign-up: ', formState)
+    } else {
+      setForm({ ...formState.inputs }, false)
+      console.log('sign-in: ', formState)
     }
   }
-
-  const { formState, inputHandler } = useForm({}, false)
 
   return (
     // flex-col flex items-center justify-center py-12 px-4
@@ -31,7 +44,7 @@ function App() {
           <div className="text-gray-800 text-2xl flex justify-center border-b-2 py-2 mb-4">
             <h2 className="text-center p-4">{loginMode ? '로그인' : '회원가입'}</h2>
           </div>
-          <form className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4" onSubmit={onSubmit}>
             <Button toggleSignInAndSignUp={toggleSignInAndSignUp} type={ButtonTypes.BUTTON}>
               {loginMode ? '회원가입' : '로그인'}하러 가기
             </Button>

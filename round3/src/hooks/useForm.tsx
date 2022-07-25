@@ -1,26 +1,42 @@
 import { useCallback, useReducer } from 'react'
 
 export interface initialStateType {
+  // inputHandler를 통해 쌓이는 inputValue들에 모음
   inputs: {
+    // 예시 -> email: {value: '', isValid: false}
     [key: string]: {
       value: string
       isValid: boolean
     }
   }
+  // 전체 폼에 검증
   isFormValid: boolean
 }
 
+// Action (dispatch 함수에 입력할 액션 타입)
 enum ActionTypes {
-  CHANGE = 'CHANGE'
-  // SETFORM = 'SETFORM'
+  CHANGE = 'CHANGE',
+  SETFORM = 'SETFORM'
 }
 
-type Actions = {
-  type: ActionTypes.CHANGE
-  inputId: string
-  value: string
-  isValid: boolean
-}
+// CHANGE일 때
+// -> 액션 크리에이터에 inputId, value, isValid가 담겨야함
+// -> 각 input에 입력하는 input 값들을 누적해가는 개념
+// SETFORM일 때
+// -> 액션 크리에이터에 inputs, isFormValid가 담겨야함
+// -> 로그인/회원가입 모드를 결정해서 -> input들을 그에 맞게 변경함
+type Actions =
+  | {
+      type: ActionTypes.CHANGE
+      inputId: string
+      value: string
+      isValid: boolean
+    }
+  | {
+      type: ActionTypes.SETFORM
+      inputs: InitialInputType
+      isFormValid: boolean
+    }
 
 const formReducer = (state: initialStateType, action: Actions): initialStateType => {
   switch (action.type) {
@@ -44,11 +60,18 @@ const formReducer = (state: initialStateType, action: Actions): initialStateType
       }
       return {
         ...state,
+        // inputs 객체에 새로운 input(값을 입력받는 input)을 쌓는다
         inputs: {
           ...state.inputs,
           [action.inputId]: { value: action.value, isValid: action.isValid }
         },
         isFormValid: formValid && action.isValid
+      }
+
+    case ActionTypes.SETFORM:
+      return {
+        inputs: action.inputs,
+        isFormValid: action.isFormValid
       }
     default:
       return state
@@ -60,6 +83,7 @@ interface InitialInputType {
     value: string
     isValid: boolean
   }
+  // 예시 -> 인풋에 따라 다름 email: {value: '', isValid: false}
 }
 
 export const useForm = (initialInput: InitialInputType, initialFormValid: boolean) => {
@@ -77,5 +101,13 @@ export const useForm = (initialInput: InitialInputType, initialFormValid: boolea
     })
   }, [])
 
-  return { formState, inputHandler }
+  const setForm = (inputData: InitialInputType, formValidity: boolean) => {
+    dispatch({
+      type: ActionTypes.SETFORM,
+      inputs: inputData,
+      isFormValid: formValidity
+    })
+  }
+
+  return { formState, inputHandler, setForm }
 }

@@ -14,6 +14,8 @@ interface ChildProps {
   type?: ButtonTypes
   defaultSize?: string
   toggleSignInAndSignUp?: any
+  onSubmit?: any
+  onDarkMode?: any
 }
 
 const Button = ({
@@ -27,7 +29,9 @@ const Button = ({
   defaultColor,
   to,
   disabled,
-  toggleSignInAndSignUp
+  toggleSignInAndSignUp,
+  onSubmit,
+  onDarkMode
 }: ChildProps) => {
   return (
     <button
@@ -36,7 +40,8 @@ const Button = ({
       } ${small ? 'w-28 h-10 text-xs break-normal' : ''}`}
       type={type}
       disabled={disabled}
-      onClick={toggleSignInAndSignUp}
+      onClick={toggleSignInAndSignUp || onDarkMode}
+      onSubmit={onSubmit}
     >
       {children}
     </button>

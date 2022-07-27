@@ -44,14 +44,24 @@ const inputReducer = (state: InputState, action: Actions): InputState => {
   }
 }
 
-const input = ({ id, label, type, placeholder, error, validators, inputHandler }: childProps) => {
+const input = ({
+  id,
+  label,
+  type,
+  placeholder,
+  error,
+  validators,
+  inputHandler
+}: childProps) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: '',
     isBlur: false,
     isValid: false
   })
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const onChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     dispatch({
       type: 'CHANGE',
       payload: e.currentTarget.value,

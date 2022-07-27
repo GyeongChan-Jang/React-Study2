@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-type localValue = string | number
+type localValue = string | number | []
 
 const useLocalStorage = (key: string, defalutValue: localValue) => {
   const [storedValue, setStoredValue] = useState(() => {

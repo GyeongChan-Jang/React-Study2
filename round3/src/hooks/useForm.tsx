@@ -38,11 +38,13 @@ type Actions =
       isFormValid: boolean
     }
 
-const formReducer = (state: initialStateType, action: Actions): initialStateType => {
+const formReducer = (
+  state: initialStateType,
+  action: Actions
+): initialStateType => {
   switch (action.type) {
     case ActionTypes.CHANGE:
       let formValid = true
-
       for (const inputId in state.inputs) {
         // 첫번째 if문이 없으면 기존 state의 새로들어온 inputid 값이 없어서 에러가 날 수도 있음
         // 내가 알고 있으니까 그거 빼고 실행해
@@ -86,20 +88,26 @@ interface InitialInputType {
   // 예시 -> 인풋에 따라 다름 email: {value: '', isValid: false}
 }
 
-export const useForm = (initialInput: InitialInputType, initialFormValid: boolean) => {
+export const useForm = (
+  initialInput: InitialInputType,
+  initialFormValid: boolean
+) => {
   const [formState, dispatch] = useReducer(formReducer, {
     inputs: initialInput,
     isFormValid: initialFormValid
   })
 
-  const inputHandler = useCallback((id: string, value: string, isValid: boolean) => {
-    dispatch({
-      type: ActionTypes.CHANGE,
-      value: value,
-      inputId: id,
-      isValid: isValid
-    })
-  }, [])
+  const inputHandler = useCallback(
+    (id: string, value: string, isValid: boolean) => {
+      dispatch({
+        type: ActionTypes.CHANGE,
+        value: value,
+        inputId: id,
+        isValid: isValid
+      })
+    },
+    []
+  )
 
   const setForm = (inputData: InitialInputType, formValidity: boolean) => {
     dispatch({

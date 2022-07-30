@@ -47,7 +47,6 @@ const Button = ({
       type={type}
       disabled={disabled}
       onClick={name ? onSocialClick : toggleSignInAndSignUp}
-      onSubmit={onSubmit}
     >
       {children}
     </button>

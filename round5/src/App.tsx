@@ -21,7 +21,7 @@ import {
 } from 'firebase/auth'
 import { auth } from './firebase'
 import { useAppDispatch, useUserSelector } from './store/store'
-import { userSign } from './store/userSlice'
+import { userSign, login } from './store/userSlice'
 
 function App() {
   const [loginMode, setLoginMode] = useState(true)
@@ -38,24 +38,17 @@ function App() {
       returnSecureToken: true
     }
     if (!loginMode) {
-      const responseData = await createUserWithEmailAndPassword(auth, data.email, data.password)
-      console.log(responseData)
-    } else {
-      const responeData = signInWithEmailAndPassword(auth, data.email, data.password)
-      console.log(responeData)
-    }
-    if (!loginMode) {
       try {
         dispatch(userSign({ userData: data }))
       } catch (err) {
         console.log(err)
       }
-      // } else {
-      //   try {
-      //     dispatch(login({ userData: data }))
-      //   } catch (err) {
-      //     console.log(err)
-      //   }
+    } else {
+      try {
+        dispatch(login({ userData: data }))
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 

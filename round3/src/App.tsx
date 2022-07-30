@@ -9,11 +9,7 @@ import {
   VALIDATOR_MAXLENGTH
 } from './util/validator'
 import { useForm } from './hooks/useForm'
-import {
-  nameErrorValue,
-  passwordMinValue,
-  passwordMaxValue
-} from './util/ErrorText'
+import { nameErrorValue, passwordMinValue, passwordMaxValue } from './util/ErrorText'
 import useLocalStorage from './hooks/useLocalStorage'
 
 function App() {
@@ -21,31 +17,17 @@ function App() {
 
   const { formState, inputHandler, setForm } = useForm({}, false)
 
-  // const [bgColor, setBgColor] = useLocalStorage('bg-color', 'dark')
-
   const [user, setUser] = useLocalStorage('users', [])
-
-  // useLayoutEffect(() => {
-  //   if (bgColor === 'dark') {
-  //     document.body.style.backgroundColor = '#000'
-  //   } else if (bgColor === 'light') {
-  //     document.body.style.backgroundColor = 'red'
-  //   } else {
-  //     document.body.style.backgroundColor = '#fff'
-  //   }
-  // })
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!loginMode) {
-      // 회원가입
       setUser({
         name: formState.inputs.name.value,
         email: formState.inputs.email.value,
         password: formState.inputs.password.value
       })
     } else {
-      // 로그인
       setUser({
         email: formState.inputs.email,
         passowrd: formState.inputs.email
@@ -53,59 +35,30 @@ function App() {
     }
   }
 
-  // 이벤트 값 콘솔로 찍어보고 로컬 스토리지에 어떻게 저장할지 생각해보기
-
-  // const onDarkMode = () => {
-  //   bgColor === 'dark' ? setBgColor('light') : setBgColor('dark')
-  // }
-
   const toggleSignInAndSignUp = () => {
     setLoginMode((prev) => !prev)
     if (!loginMode) {
-      // 회원가입 모드
       setForm(
         { ...formState.inputs },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       )
     } else {
-      // 로그인 모드
       setForm({ ...formState.inputs }, false)
     }
   }
 
   return (
-    // flex-col flex items-center justify-center py-12 px-4
     <div className="App">
       <div className="form-contianer flex items-center justify-center min-h-screen bg-gray-100">
         <div className=" px-12 py-10 mt-4 text-left bg-white shadow-lg rounded-md w-full max-w-sm">
           <div className="text-gray-800 text-2xl flex justify-center border-b-2 py-2 mb-4">
-            <h2 className="text-center p-4">
-              {loginMode ? '로그인' : '회원가입'}
-            </h2>
+            <h2 className="text-center p-4">{loginMode ? '로그인' : '회원가입'}</h2>
           </div>
           <form onSubmit={onSubmit} className="flex flex-col gap-4">
-            {/* <Button onDarkMode={onDarkMode}>
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                ></path>
-              </svg>
-            </Button> */}
-            <Button
-              toggleSignInAndSignUp={toggleSignInAndSignUp}
-              type={ButtonTypes.BUTTON}
-            >
+            <Button toggleSignInAndSignUp={toggleSignInAndSignUp} type={ButtonTypes.BUTTON}>
               {loginMode ? '회원가입' : '로그인'}하러 가기
             </Button>
+            <button>asdf</button>
             {!loginMode && (
               <Input
                 id="name"
@@ -138,9 +91,6 @@ function App() {
               ]}
               inputHandler={inputHandler}
             />
-            <Button disabled={!formState.isFormValid}>
-              {loginMode ? '로그인' : '회원가입'}
-            </Button>
           </form>
         </div>
       </div>

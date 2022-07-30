@@ -42,9 +42,7 @@ const Button = ({
       className={`px-4 py-2 rounded text-white inline-block shadow-lg bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 ${
         large ? 'w-64' : ''
       } ${small ? 'w-28 h-10 text-xs break-normal' : ''} ${
-        name === 'google'
-          ? 'w-1/2 bg-gray-200 text-gray-500 hover:bg-gray-300 focus:bg-gray-400'
-          : ''
+        name === 'google' ? 'w-1/2 bg-[#EA4335] text-white hover:bg-red-600 focus:bg-red-700' : ''
       } ${name === 'github' ? 'w-1/2 bg-black hover:bg-gray-800 focus:bg-gray-900' : ''}`}
       type={type}
       disabled={disabled}
